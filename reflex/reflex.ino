@@ -1,12 +1,16 @@
 
 int masterPin = 12;
 int pinLedA = 2;
-int PinLedB = 3;
+int pinLedB = 3;
 int pinButtonA = 11;
-int PinButtonB = 10;
-int PinLedRed = 4;
-int PinLedGreen = 5;
+int pinButtonB = 10;
+int pinLedRed = 4;
+int pinLedGreen = 5;
 int val = 0;
+unsigned long StartTime;
+unsigned long CurrentTime;
+unsigned long ElapsedTime;
+int number;
 
 
 
@@ -33,25 +37,58 @@ void loop() {
 
   number = random(1, 3);
 
-// digitalWrite(2, HIGH);  
   if (number == 1)
 {
+  val = digitalRead(pinButtonA);
+  StartTime = millis();
+  // time starts;
+  
+  while(val==0)
+    {
+      digitalWrite(pinLedA,HIGH);
+    }
 
-  val = digitalRead(Pin2);
-  delay(5000);
+  digitalWrite(pinLedA,LOW);
+  
+  CurrentTime = millis();
+  ElapsedTime = CurrentTime - StartTime;
+  Serial.print (ElapsedTime);
+  
+  if(ElapsedTime > 1000)
+    {
+      digitalWrite(pinLedRed,HIGH);            
+    }
+    else
+    {
+      digitalWrite(pinLedGreen,HIGH);
+    }
+  // if time greater than 1 sec then red light on.
 }
-
-// else if (condition2)  {  // do Thing B }
-
 else
+  {
+    StartTime = millis();
 
-{
+
+
+
   
   
-  delay(5000);
+    CurrentTime = millis();
+    ElapsedTime = CurrentTime - StartTime;
+    Serial.print (ElapsedTime);
+  
+    if(ElapsedTime > 1000)
+      {
+        digitalWrite(pinLedRed,HIGH);            
+      }
+    else
+      {
+      digitalWrite(pinLedGreen,HIGH);
+      }
+  
+  }
+
+
+
 }
 
-
-
-
-}
