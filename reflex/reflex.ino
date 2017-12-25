@@ -61,7 +61,8 @@ void loop() {
   if(ElapsedTime > 5000)
       break;
 
-  val = digitalRead(pinButtonA);
+  if(digitalRead(pinButtonA))
+    val = 1;
       
     }
 
