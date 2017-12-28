@@ -30,8 +30,7 @@ void setup() {
 //  delay(5000);
 //  digitalWrite(masterPin,LOW);
 digitalWrite(pinHigh,HIGH);
-digitalWrite(pinLedRed,HIGH);
-digitalWrite(pinLedGreen,HIGH);
+
 digitalWrite(pinLedA,HIGH);
   delay(2000);
   digitalWrite(pinLedA,LOW);
@@ -43,7 +42,8 @@ digitalWrite(pinLedA,HIGH);
 
 void loop() {
   // put your main code here, to run repeatedly:
- 
+  digitalWrite(pinLedRed,LOW );
+digitalWrite(pinLedGreen,LOW);
   // number = random(1, 2);
   number = 1 ;
   if (number == 1)
@@ -69,9 +69,9 @@ void loop() {
     }
 
   digitalWrite(pinLedA,LOW);
-  delay(2000);
   
-  // Serial.print (ElapsedTime);
+  
+   Serial.print (ElapsedTime);
   
 
   // if time greater than 3 sec then red light on.
@@ -93,7 +93,7 @@ void loop() {
 
     digitalWrite(pinLedA,LOW);
     digitalWrite(pinLedB,LOW);
-    delay(2000);
+    
 
   if(ElapsedTime > 3000)
     {
@@ -104,6 +104,6 @@ void loop() {
       digitalWrite(pinLedGreen,HIGH);
     }  
 
-    
+    delay(1500);
 }
 
