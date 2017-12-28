@@ -30,6 +30,8 @@ void setup() {
 //  delay(5000);
 //  digitalWrite(masterPin,LOW);
 digitalWrite(pinHigh,HIGH);
+digitalWrite(pinLedRed,HIGH);
+digitalWrite(pinLedGreen,HIGH);
 digitalWrite(pinLedA,HIGH);
   delay(2000);
   digitalWrite(pinLedA,LOW);
@@ -42,70 +44,66 @@ digitalWrite(pinLedA,HIGH);
 void loop() {
   // put your main code here, to run repeatedly:
  
-  //number = random(1, 2);
+  // number = random(1, 2);
   number = 1 ;
   if (number == 1)
 {
-  val = 0;
+  val = 1;
   //val = digitalRead(pinButtonA);
   StartTime = millis();
   // time starts;
   
-  while(val==0)
+  while(val==1)
     {
       digitalWrite(pinLedA,HIGH);
 
       CurrentTime = millis();
   ElapsedTime = CurrentTime - StartTime;
 
-  if(ElapsedTime > 5000)
-      break;
+   if(ElapsedTime > 5000)    break;
 
-  if(digitalRead(pinButtonA))
-    val = 1;
-      
+  // val = (digitalRead(pinButtonA));
+
+  if (digitalRead(pinButtonA))
+      val=0;
     }
 
   digitalWrite(pinLedA,LOW);
   delay(2000);
   
-  Serial.print (ElapsedTime);
+  // Serial.print (ElapsedTime);
   
-  if(ElapsedTime > 5000)
+
+  // if time greater than 3 sec then red light on.
+}
+ /* else
+  {
+    StartTime = millis();
+
+  digitalWrite(pinLedB,HIGH);
+
+  
+    CurrentTime = millis();
+    ElapsedTime = CurrentTime - StartTime;
+    
+   if(ElapsedTime > 5000)    break;
+  
+  }
+*/
+
+    digitalWrite(pinLedA,LOW);
+    digitalWrite(pinLedB,LOW);
+    delay(2000);
+
+  if(ElapsedTime > 3000)
     {
       digitalWrite(pinLedRed,HIGH);            
     }
     else
     {
       digitalWrite(pinLedGreen,HIGH);
-    }
-  // if time greater than 1 sec then red light on.
-}
- /* else
-  {
-    StartTime = millis();
+    }  
 
-
-
-
-  
-  
-    CurrentTime = millis();
-    ElapsedTime = CurrentTime - StartTime;
-    Serial.print (ElapsedTime);
-  
-    if(ElapsedTime > 1000)
-      {
-        digitalWrite(pinLedRed,HIGH);            
-      }
-    else
-      {
-      digitalWrite(pinLedGreen,HIGH);
-      }
-  
-  }
-*/
-
-
+    
 }
 
