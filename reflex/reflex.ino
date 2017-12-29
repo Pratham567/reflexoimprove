@@ -6,12 +6,18 @@ int pinButtonA = 11;
 int pinButtonB = 10;
 int pinLedRed = 4;
 int pinLedGreen = 5;
-int val = 0;
+int buttonState;
+int lastButtonState = LOW;
 int pinHigh = 12;
 unsigned long StartTime;
 unsigned long CurrentTime;
 unsigned long ElapsedTime;
 int number;
+int reading;
+int val;
+unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
+unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
+
 
 
 
@@ -48,33 +54,46 @@ digitalWrite(pinLedGreen,LOW);
   number = 1 ;
   if (number == 1)
 {
-  val = 1;
-  //val = digitalRead(pinButtonA);
+  val = HIGH;
+ 
   StartTime = millis();
-  // time starts;
+  // time starts for checking reaction;
   
-  while(val==1)
+  while(val)
     {
       digitalWrite(pinLedA,HIGH);
 
-      CurrentTime = millis();
-  ElapsedTime = CurrentTime - StartTime;
+      CurrentTime = millis();  
+      //Final timme for checking reaction;
+  
+     
 
-   if(ElapsedTime > 5000)    break;
+  
+      // Debouncing the push button
+    if(digitalRead(pinButtonA))
+      {  lastDebounceTime = millis();
+      
+      while(digitalRead(pinButtonA))
+          {
+               if((millis() - lastDebounceTime) > 500)
+                  {
+                    val = LOW;
+                    break;
+                  }
+                
+          }
+      }
 
-  // val = (digitalRead(pinButtonA));
+       ElapsedTime = CurrentTime - StartTime;
 
-  if (digitalRead(pinButtonA))
-      val=0;
+      if(ElapsedTime > 5000)    break;
+    
     }
 
-  digitalWrite(pinLedA,LOW);
-  
-  
-   Serial.print (ElapsedTime);
+    //  Serial.print (ElapsedTime);
   
 
-  // if time greater than 3 sec then red light on.
+  
 }
  /* else
   {
@@ -94,7 +113,7 @@ digitalWrite(pinLedGreen,LOW);
     digitalWrite(pinLedA,LOW);
     digitalWrite(pinLedB,LOW);
     
-
+  // if time greater than 3 sec then red light on.
   if(ElapsedTime > 3000)
     {
       digitalWrite(pinLedRed,HIGH);            
