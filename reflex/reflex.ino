@@ -38,8 +38,10 @@ void setup() {
 digitalWrite(pinHigh,HIGH);
 
 digitalWrite(pinLedA,HIGH);
+digitalWrite(pinLedB,HIGH);
   delay(2000);
   digitalWrite(pinLedA,LOW);
+  digitalWrite(pinLedB,LOW);
   delay(2000);
   
   
@@ -52,8 +54,8 @@ void loop() {
     digitalWrite(pinLedGreen,LOW);
     digitalWrite(pinLedA,LOW);
     digitalWrite(pinLedB,LOW);
-  // number = random(1, 2);
-  number = 2 ;
+   number = random(1, 3);
+ 
   if (number == 1)
 {
   val = HIGH;
@@ -72,7 +74,7 @@ void loop() {
       
       while(digitalRead(pinButtonA))
           {
-               if((millis() - lastDebounceTime) > 2000)
+               if((millis() - lastDebounceTime) > 50)
                   {
                     val = LOW;
                     break;
@@ -88,6 +90,8 @@ void loop() {
       if(ElapsedTime > 5000)    break;
     
     }
+
+    digitalWrite(pinLedA,LOW);
 
     //  Serial.print (ElapsedTime);
   
@@ -114,7 +118,7 @@ else
       
       while(digitalRead(pinButtonB))
           {
-               if((millis() - lastDebounceTime) > 500)
+               if((millis() - lastDebounceTime) > 50)
                   {
                     val = LOW;
                     break;
