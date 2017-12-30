@@ -48,10 +48,12 @@ digitalWrite(pinLedA,HIGH);
 
 void loop() {
   // put your main code here, to run repeatedly:
-  digitalWrite(pinLedRed,LOW );
-digitalWrite(pinLedGreen,LOW);
+    digitalWrite(pinLedRed,LOW );
+    digitalWrite(pinLedGreen,LOW);
+    digitalWrite(pinLedA,LOW);
+    digitalWrite(pinLedB,LOW);
   // number = random(1, 2);
-  number = 1 ;
+  number = 2 ;
   if (number == 1)
 {
   val = HIGH;
@@ -63,19 +65,14 @@ digitalWrite(pinLedGreen,LOW);
     {
       digitalWrite(pinLedA,HIGH);
 
-      CurrentTime = millis();  
-      //Final timme for checking reaction;
-  
-     
-
-  
-      // Debouncing the push button
+      
+    // Debouncing the push button
     if(digitalRead(pinButtonA))
       {  lastDebounceTime = millis();
       
       while(digitalRead(pinButtonA))
           {
-               if((millis() - lastDebounceTime) > 500)
+               if((millis() - lastDebounceTime) > 2000)
                   {
                     val = LOW;
                     break;
@@ -83,7 +80,9 @@ digitalWrite(pinLedGreen,LOW);
                 
           }
       }
-
+      CurrentTime = millis();  
+      //Final timme for checking reaction;
+      
        ElapsedTime = CurrentTime - StartTime;
 
       if(ElapsedTime > 5000)    break;
@@ -95,23 +94,54 @@ digitalWrite(pinLedGreen,LOW);
 
   
 }
- /* else
-  {
-    StartTime = millis();
-
-  digitalWrite(pinLedB,HIGH);
-
+ 
   
-    CurrentTime = millis();
-    ElapsedTime = CurrentTime - StartTime;
+else
+  {
+     val = HIGH;
+ 
+  StartTime = millis();
+  // time starts for checking reaction;
+  
+  while(val)
+    {
+      digitalWrite(pinLedB,HIGH);
+
+      
+    // Debouncing the push button
+    if(digitalRead(pinButtonB))
+      {  lastDebounceTime = millis();
+      
+      while(digitalRead(pinButtonB))
+          {
+               if((millis() - lastDebounceTime) > 500)
+                  {
+                    val = LOW;
+                    break;
+                  }
+                
+          }
+      }
+      CurrentTime = millis();  
+      //Final timme for checking reaction;
+      
+       ElapsedTime = CurrentTime - StartTime;
+
+      if(ElapsedTime > 5000)    break;
     
-   if(ElapsedTime > 5000)    break;
+    }
+
+
+    digitalWrite(pinLedB,LOW);
+    
+    //  Serial.print (ElapsedTime);
+  
+
   
   }
-*/
 
-    digitalWrite(pinLedA,LOW);
-    digitalWrite(pinLedB,LOW);
+
+    
     
   // if time greater than 3 sec then red light on.
   if(ElapsedTime > 3000)
