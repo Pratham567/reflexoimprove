@@ -22,7 +22,9 @@ unsigned long debounceDelay = 50;    // the debounce time; increase if the outpu
 
 
 void setup() {
+
   
+  Serial.begin(9600);
   // pinMode(masterPin,OUTPUT);
   pinMode(pinHigh,OUTPUT);
   pinMode(pinLedA,OUTPUT);
@@ -74,7 +76,7 @@ void loop() {
       
       while(digitalRead(pinButtonA))
           {
-               if((millis() - lastDebounceTime) > 50)
+               if((millis() - lastDebounceTime) > debounceDelay)
                   {
                     val = LOW;
                     break;
@@ -93,7 +95,7 @@ void loop() {
 
     digitalWrite(pinLedA,LOW);
 
-    //  Serial.print (ElapsedTime);
+     Serial.print(ElapsedTime);
   
 
   
@@ -138,7 +140,7 @@ else
 
     digitalWrite(pinLedB,LOW);
     
-    //  Serial.print (ElapsedTime);
+    Serial.print(ElapsedTime);
   
 
   
